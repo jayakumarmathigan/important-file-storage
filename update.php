@@ -99,15 +99,18 @@ if(isset($_POST['submit'])){
 	$dob = $_POST['s_dob'];
 	$sex = $_POST['s_sex'];
 	$class_name = $_POST['s_class'];
-	//$sql = "UPDATE student_master SET stdname='".$name."', stddob='".$dob."', stdsex='".$sex."', stdclass='".$class_name."' WHERE stdid=$id";
-	//$id = $_GET['stdid'];
+	$date = date("Y-m-d");
+	$sol = $date - $dob;
+	if($sol>15){
 	$sql2 = "UPDATE student_master SET stdname='".$name."', stddob='".$dob."', stdsex='".$sex."', stdclass=".$class_name." WHERE stdid=".$id;
-	//$sql2 = "UPDATE student_master SET stdname='$name', stddob='$dob', stdsex='$sex', stdclass='$class_name' WHERE stdid='$id'";
-	echo $sql2;
+	//echo $sql2;
 	if($con->query($sql2)){
 		header('location:home.php');
 	}else{
 		echo "<p>error while updating</p>";
+	}
+	}else{
+		echo "Age should be greater than 15";
 	}
 }
 ?>

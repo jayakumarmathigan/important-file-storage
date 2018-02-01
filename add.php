@@ -77,7 +77,9 @@ if(isset($_POST["submit"])){
 	$dob = $_POST['s_dob'];
 	$sex = $_POST['s_sex'];
 	$class_name = $_POST['s_class'];
-	
+	$date = date("Y-m-d");
+	$sol = $date - $dob;
+	if($sol>15){
 	$sql = "INSERT INTO student_master(stdname,stddob,stdsex,stdclass) VALUES('$name','$dob','$sex','$class_name')";
 	if($con->query($sql)){
 		//echo "success"."<br/>";
@@ -85,10 +87,23 @@ if(isset($_POST["submit"])){
 	}else{
 		echo "error";
 	}
+	}else{
+		echo "<p id='hide'>Age should be greater than 15</p>";
+		//echo '<script type="text/javascript">jsfunction();</script>';
+		//echo "Age should be greater than 15.";
+	}
 }
 else{
 	
 }
 ?>
+<script type="text/javascript">
+function jsfunction(){
+	setTimeout( 5000, doHide()) ;
+	function doHide(){
+		document.getElementById('hide').style.display = "none";
+	}
+}
+</script>
 </body>
 </html>
