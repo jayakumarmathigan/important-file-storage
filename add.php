@@ -45,6 +45,7 @@ if($result->num_rows>0){
         font-size: 15px;
         font-weight: bold;
     }
+	#hide{text-align:center;color:red;}
 </style>
 </head>
 <body>
@@ -80,30 +81,27 @@ if(isset($_POST["submit"])){
 	$date = date("Y-m-d");
 	$sol = $date - $dob;
 	if($sol>15){
-	$sql = "INSERT INTO student_master(stdname,stddob,stdsex,stdclass) VALUES('$name','$dob','$sex','$class_name')";
-	if($con->query($sql)){
-		//echo "success"."<br/>";
-		header('location:home.php');
-	}else{
-		echo "error";
-	}
-	}else{
-		echo "<p id='hide'>Age should be greater than 15</p>";
-		//echo '<script type="text/javascript">jsfunction();</script>';
-		//echo "Age should be greater than 15.";
-	}
+		$sql = "INSERT INTO student_master(stdname,stddob,stdsex,stdclass) VALUES('$name','$dob','$sex','$class_name')";
+		if($con->query($sql)){
+			header('location:home.php');
+		}else{
+			echo "error";
+		}
+	}else{ 
+		echo "<p id='hide'>Age should be greater than 15.</p>";
+		}
 }
 else{
 	
 }
 ?>
 <script type="text/javascript">
-function jsfunction(){
-	setTimeout( 5000, doHide()) ;
-	function doHide(){
-		document.getElementById('hide').style.display = "none";
-	}
-}
+$(window).load(function() {
+ // executes when complete page is fully loaded, including all frames, objects and images                  
+	 setTimeout(function () {
+		 $('#hide').hide();
+	 }, 2500);     
+});
 </script>
 </body>
 </html>
