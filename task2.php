@@ -20,7 +20,9 @@ if(isset($_POST["submit"])){
 	$result = $con->query($sql);
 	if($result->num_rows>0){
 		while($row=$result->fetch_assoc()){
-			echo $row['name'].' '.$row['mail'].' '.$row['country'].' '.$row['city'].'<br/>';
+			echo "<table style='border:1px solid black;width:100%;'>";
+			echo "<tr><td>".$row['name']."</td><td>".$row['mail']."</td><td>".$row['country']."</td><td>".$row['city']."</td>";
+			echo "</table>";
 		}
 	}
 }
