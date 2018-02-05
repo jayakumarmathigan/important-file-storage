@@ -43,7 +43,7 @@ if($con->connect_error){
 </head>
 <body>
 <div class="login-form">
- <form action="<?php $_SERVER['PHP_SELF'] ?>" method="post">
+ <form action="<?php $_SERVER['PHP_SELF'] ?>" method="post" enctype="multipart/form-data">
 	<h3 class="text-center">Sign up form</h3>
 	<div class="form-group">
         Name:-&nbsp;&nbsp;&nbsp;<input type="text" class="form-control" name="name" required>
@@ -53,6 +53,9 @@ if($con->connect_error){
 	</div>
 	<div class="form-group">
 		Mob.no:-&nbsp;&nbsp;&nbsp;<input type="tel" class="form-control"  name="mob" pattern="[789][0-9]{9}" required>
+	</div>
+	<div class="form-group">
+		<input type="file" name="image">
 	</div>
 	<div class="form-group">
 		Password:-<input type="password" class="form-control"  name="pass" required>
@@ -71,6 +74,9 @@ if(isset($_POST["submit"])){
 	$name = $_POST["name"];
 	$email = $_POST["mail"];
 	$mob = $_POST["mob"];
+	$image = $_FILES['image']['tmp_name'];
+	$image = file_get_contents($image);
+	$image = base64_encode($image);
 	$pass = $_POST["pass"];
 	$pass1 = $_POST["pass1"];
 	$sql = "SELECT * FROM signup WHERE mail = '$email' OR mob = '$mob'";
@@ -81,7 +87,7 @@ if(isset($_POST["submit"])){
 		if($pass != $pass1){
 			echo "<p id='err'>Password should be same</p>";
 		}else{
-			$sql = "INSERT INTO signup(name,mail,mob,pass) VALUES('$name','$email','$mob','$pass')";
+			$sql = "INSERT INTO signup(name,mail,mob,pass,image) VALUES('$name','$email','$mob','$pass','$image')";
 			if($con->query($sql)){
 				header('location:home.php');
 			}else{
