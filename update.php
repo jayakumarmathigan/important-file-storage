@@ -103,7 +103,6 @@ if(isset($_POST['submit'])){
 	$sol = $date - $dob;
 	if($sol>15){
 	$sql2 = "UPDATE student_master SET stdname='".$name."', stddob='".$dob."', stdsex='".$sex."', stdclass=".$class_name." WHERE stdid=".$id;
-	//echo $sql2;
 	if($con->query($sql2)){
 		header('location:home.php');
 	}else{

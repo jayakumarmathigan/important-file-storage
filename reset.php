@@ -41,7 +41,6 @@ if($con->connect_error){
 		text-align:center;
 	}
 	#hide{text-align:center;color:red;}
-	#suc{color:green;text-align:center;}
 </style>
 </head>
 <body>
@@ -49,41 +48,36 @@ if($con->connect_error){
   <form action="<?php $_SERVER['PHP_SELF'] ?>" method="post">
         <h2 class="text-center">Checking Details</h2>
         <div class="form-group">
-            <input type="text" class="form-control" placeholder="Username" name="user_name">
+            <input type="password" class="form-control" placeholder="Old Password" name="old_pass">
         </div>
         <div class="form-group">
-            <input type="tel" class="form-control" placeholder="Phone number" name="mob" required="required">
+            <input type="password" class="form-control" placeholder="New Password" name="new_pass">
         </div>
         <div class="form-group">
             <button type="submit" class="btn btn-primary btn-block" name="submit">Save</button>
         </div> 
 		<div class="clearfix">
             <a href="login.php" class="pull-right">Login</a>
-        </div> 	
+        </div> 		
     </form>
 </div>
 <?php
 if(isset($_POST['submit'])){
-	$name = $_POST['user_name'];
-	$mob = $_POST['mob'];
-	$sql = "SELECT name,pass FROM signup WHERE name = '$name' AND mob = '$mob'";
-	$result = $con->query($sql);
-	if($result->num_rows>0){
-		while($row=$result->fetch_assoc()){
-			echo "<p id='suc'>Username : '".$row['name']."'</p>";
-			echo "<p id='suc'>Password : '".$row['pass']."'</p>";
-			echo "<br/>";
-			}
+	$old_pass = $_POST['old_pass'];
+	$new_pass = $_POST['new_pass'];
+	$sql = "UPDATE signup SET pass='$new_pass' WHERE pass='$old_pass'";
+	if($con->query($sql)){
+		header('location:login.php');
 	}else{
-			echo "error";
-		}
+		echo "<p id='hide'>Sorry,password doesn't match</p>";
+	}
 }
 ?>
 <script type="text/javascript">
-$(window).load(function() {
-	 setTimeout(function () {
-		 $('#hide,#suc').hide();
-	 }, 3000);  
+$(window).load(function(){
+	setTimeout(function(){
+		$("#hide").hide();
+	},3000);
 });
 </script>
 </body>

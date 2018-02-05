@@ -146,12 +146,13 @@
         <div class="form-group">
             <button type="button" class="btn btn-primary btn-block" id="submit">Log in</button>
         </div>
-        <!--<div class="clearfix">
-            <label class="pull-left checkbox-inline"><input type="checkbox"> Remember me</label>
-            <a href="#" class="pull-right">Forgot Password?</a>
-        </div>-->        
+        <div class="clearfix">
+          <!--  <label class="pull-left checkbox-inline"><input type="checkbox"> Remember me</label>-->
+		  <a href="reset.php" class="pull-left">Create new Password</a>
+            <a href="mobcheck.php" class="pull-right">Forgot Password?</a>
+        </div>        
     </form>
-    <!--<p class="text-center"><a href="#">Create an Account</a></p>-->
+    <p class="text-center"><a href="signup.php">Create an Account</a></p>
 </div>
 <!-- The Modal -->
 <div id="myModal" class="modal">

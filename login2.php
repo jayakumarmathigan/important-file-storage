@@ -9,7 +9,7 @@ error_reporting(1);
 //if(isset($_POST['submit'])){
 	$name = $_POST['username'];
 	$pass = $_POST['password'];
-$sql = "SELECT userid, pwd FROM user_master WHERE userid='$name' AND pwd='$pass'";
+$sql = "SELECT * FROM signup WHERE name='$name' AND pass='$pass'";
 //$sql = "SELECT userid, pwd FROM user_master WHERE userid='".$name."' AND pwd='".$pass."'";
 //echo $sql;
 $result = $con->query($sql);

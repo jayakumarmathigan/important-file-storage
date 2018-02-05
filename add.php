@@ -91,9 +91,6 @@ if(isset($_POST["submit"])){
 		echo "<p id='hide'>Age should be greater than 15.</p>";
 		}
 }
-else{
-	
-}
 ?>
 <script type="text/javascript">
 $(window).load(function() {
