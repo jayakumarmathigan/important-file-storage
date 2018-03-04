@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+   <link type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.12/themes/ui-lightness/jquery-ui.css" rel="stylesheet" />
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.js"></script>
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.12/jquery-ui.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <title>search</title>
+<script>
+$(function() {
+      $('#date1').datepicker({dateFormat: 'dd/mm/yy'});
+	  $('#date2').datepicker({dateFormat: 'dd/mm/yy'});
+});
+</script>
+  <style>
+  html {
+   box-sizing: border-box;
+  height:100%; 
+}
+body{
+  overflow:auto;
+  height:100%;
+  border: 0;
+  padding: 0;
+  margin: 0px;
+}
+.top{
+	position:absolute;
+	top:0;
+	left:0;
+	right:0;
+	background:#7b97e6;
+	padding:25px;
+	position:fixed;
+	 z-index: 1;
+}
+.bottom{
+	position:absolute;
+	bottom:0;
+	left:0;
+	right:0;
+	background:#7b97e6;
+	padding:25px;
+	position:fixed;
+	z-index: 1;
+}
+#container-fluid{position:relative;margin-top:40px;}
+.container-fluid>form {
+  background: white;
+  width: 90%;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.7);
+  font-family: lato;
+  position: relative;
+  color: #333;
+  border-radius: 10px;
+  padding:25px;
+  margin:60px;
+  border:2px solid red;
+}
+select {
+   border-radius: 5px;
+    width: 93%;
+    padding: 10px;
+    font-size: 14px;
+    font-weight: 400;
+  border: 1px solid #ccc;
+  font-weight: 400;
+}
+input[type="text"]{
+	border-radius: 5px;
+    width: 93%;
+    padding: 10px;
+    font-size: 14px;
+    font-weight: 400;
+	border: 1px solid #ccc;
+}
+input[type="submit"] {
+  margin-top:15px;
+  float:right;
+  transform: translate(-50%, 0);
+  font-family: inherit;
+  color: white;
+  background: #FF3838;
+  outline: none;
+  border: none;
+  padding: 5px 15px;
+  font-size: 1.3em;
+  font-weight: 400;
+  border-radius: 3px;
+  box-shadow: 0px 0px 10px rgba(51, 51, 51, 0.4);
+  cursor: pointer;
+  transition: all 0.15s ease-in-out;
+}
+form input[type="submit"]:hover {
+  background: #ff5252;
+}
+form header {
+  color: #FF3838;
+  font-size: 1.2em;
+  font-weight: 600;
+  border-radius: 10px 10px 0 0;
+  text-align:center;
+  margin-bottom:30px;
+}
+span{
+ color: #FF3838;
+}
+#logout{
+	float:right;
+	font-weight:600;
+	}
+  </style>
+
+  <script>
+  function convertDate( str ) {
+   var parts = str.split("/");
+   return new Date(parts[1] + "/" + parts[0] + "/" + parts[2]);
+}
+ $(document).ready(function(){
+ var fullDate = new Date();
+ var twoDigitMonth = ((fullDate.getMonth().length+1) === 1)? (fullDate.getMonth()+1) : '0' + (fullDate.getMonth()+1);
+ var twoDigitDate = fullDate.getDate()+"";if(twoDigitDate.length==1)	twoDigitDate="0" +twoDigitDate;
+ var currentDate = twoDigitDate + "/" + twoDigitMonth + "/" + fullDate.getFullYear();
+ document.getElementById('date1').value=currentDate;
+  
+
+  document.getElementById('date2').value=fin1;
+  
+	 $('#submit').click(function(){
+	 
+	 var d1=document.getElementById('date1').value;
+	var d2=document.getElementById('date2').value;
+	
+	 
+	 
+		var date1 = convertDate(d1);
+		var date2 = convertDate(d2);
+		var date_difference=parseInt((date2-date1)/(24*3600*1000));
+		alert(date_difference);
+		if(date_difference <= 30){ 
+			alert('date is correct');
+		 }
+		else{
+			alert('please select dates less than or equal to 30');
+		}
+	});
+});
+
+ </script>
+</head>
+<body>
+<div class="top">
+	<div class="container-fluid">
+	    <a href="<?php echo base_url(); ?>user/ses_unset"><input type="button" class="btn btn-danger" value="logout" id="logout"></a>
+	</div>
+</div>
+<div class="container-fluid" id="container-fluid">
+	<form action="" method="post">
+	  <header>Search Details</header>
+	<div class="row">
+	    <div class="col-md-3">
+			  <label>From<span>*</span></label>
+			  <input type="text"  name="from1" id="date1" value=""/>
+		</div>
+		<div class="col-md-3">
+			  <label>To <span>*</span></label>
+			   <input type="text"  name="to" id="date2" value="dd/mm/yyyy"/>
+		</div>
+		<div class="col-md-3">
+				<label>Channel<span>*</span></label>
+				<select  name="channel1" id="channel">
+					<option value="hotel raspberry chennai">Hotel Raspberry Chennai</option>
+					<option value="hotel raspberry chennai">RA hotel</option>
+					<option value="hotel raspberry chennai">Hotel</option>
+				</select>
+		</div>
+		<div class="col-md-3">
+				<label>RoomType<span>*</span></label>
+				<select  name="room1" id="tab_room">
+					<option value="Eco single">Eco Single</option>
+					<option value="Eco Double">Eco Double</option>
+					<option value="Eco Trible">Eco Trible</option>
+				</select>
+		</div>
+	</div>
+	<div class="row">
+	    <div class="col-md-3">
+		</div>
+		<div class="col-md-3">
+		</div>
+		<div class="col-md-3">
+		</div>
+	    <div class="col-md-3">
+		     <input  type="submit" name="submit"    id="submit" value="Ok">
+	   </div>
+	</div>
+	</form>
+</div>
+<div class="bottom"></div>
+<div class='clearfix'></div>
+<script>
+function myFunction(){
+
+}
+</script>
+</body>
+</html>
