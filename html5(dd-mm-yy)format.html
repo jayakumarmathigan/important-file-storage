@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>html date picker</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.3/moment.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>	
+<style>
+input[type=date] {
+    position: relative;
+    width: 150px; height: 32px;
+    color: white;
+}
+
+input[type=date]:before {
+    position: absolute;
+    top: 3px; left: 3px;
+    content: attr(data-date);
+    display: inline-block;
+    color: black;
+}
+
+input[type=date]::-webkit-datetime-edit, input[type=date]::-webkit-inner-spin-button, input[type=date]::-webkit-clear-button {
+    display: none;
+}
+
+input::-webkit-calendar-picker-indicator {
+    position: absolute;
+    top: 8px;
+    right: 0;
+    color: black;
+    opacity: 1;
+}
+table{width:100%;}
+</style>
+</head>
+<body>
+<div class="container">
+	<input type="date" class="form-control" data-date="" data-date-format="DD/MM/YYYY" id="dateField" min="2014-01-01" value="2014-01-01" disabled >
+</div>
+<script>
+// to display date in dd/mm/yyyy format
+$("#dateField").on("change", function() {
+    this.setAttribute(
+        "data-date",
+        moment(this.value, "YYYY-MM-DD")
+        .format( this.getAttribute("data-date-format") )
+    )
+}).trigger("change")
+
+
+
+// to hide past dates
+ var input = document.getElementById("dateField");
+      var today = new Date();
+      var day = today.getDate();
+      // Set month to string to add leading 0
+      var mon = new String(today.getMonth()+1); //January is 0!
+      var yr = today.getFullYear();
+      
+        if(mon.length < 2) { mon = "0" + mon; }
+      
+        var date = new String( yr + '-' + mon + '-' + day );
+      
+      input.disabled = false; 
+      input.setAttribute('min', date);
+    
+	
+	//after date(dd/mm/yyyy) submission to convert date into(yyyy/mm/dd) format
+	
+	function convertDate( str ) {
+   var parts = str.split("/");
+   return new Date(parts[1] + "/" + parts[0] + "/" + parts[2]);
+}
+ $(document).ready(function(){
+
+  
+	 $('#submit').click(function(){
+	 
+	 var d1=document.getElementById('date1').value;
+	var d2=document.getElementById('date2').value;
+	var date1 = convertDate(d1);
+		var date2 = convertDate(d2);
+		var date_difference=parseInt((date2-date1)/(24*3600*1000));
+		//alert(date_difference);
+		if(date_difference <= 30){ 
+			//alert('date is correct');
+			function show() {
+			document.getElementById("myDiv").style.display="block";
+			setTimeout("hide()", 10000);  // 5 seconds
+		}
+
+		function hide() {
+			document.getElementById("myDiv").style.display="none";
+		}
+		show();
+		 }
+		else{
+			alert('please select dates less than or equal to 30');
+		}
+	});
+});
+</script>
+</body>
+</html>
