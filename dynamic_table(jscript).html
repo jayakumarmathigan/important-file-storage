@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>javascript Details</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+<style>
+body{font-family: "Roboto", sans-serif;}
+table{margin-top: 20px;margin-bottom: 20px;margin-left: auto;margin-right: auto;}
+td{font-size: 14px;}
+#span{font-weight: 400;font-size: 14px;}
+#reset{float: right;margin-right: 50px;}
+#submit{float:right;}
+#table{display:none;background:#fff;border-collapse:collapse;}
+th,.row1{border:1px solid #000;padding:10px;}
+</style>
+<style type="text/css" media="print">
+@page
+{
+	size: landscape;
+	margin: 2cm;
+}
+</style>
+</head>
+<body>
+<div class="container">
+	<div style="padding:10px;background: darkkhaki;">
+		<table>
+			<tr>
+				<td>From</td>
+				<td><input type="date" class="form-control" id="date1"></td>
+			</tr>
+			<tr>
+				<td>To</td>
+				<td><input type="date" class="form-control" id="date2"></td>
+			</tr>
+			<tr>
+				<td colspan="2"><input type="submit" class="btn btn-success" id="submit" value="Submit">
+				<input type="submit"  class="btn btn-info" id="reset" value="Reset"></td>
+			</tr>
+		</table>
+	</div>
+</div>
+<div class="container-fluid">
+	<table id="table" style="width:100%;">
+		<tr id="row" style="font-size: 8px;background: darkkhaki;color:#fff;"></tr>
+	</table>
+</div>
+<script>
+$(document).ready(function(){
+		var table='';
+	$('#reset').click(function(){
+		$('#date1').val('');
+		$('#date2').val('');
+		//$('.row1').remove();
+	});
+	$('#submit').click(function(){
+		var d1=$('#date1').val();
+		var d2=$('#date2').val();
+		if(d1!='' && d2!=''){
+			//$('.row1').val('');
+			var d11=d1.split("/");
+			var newDate=d11[1]+","+d11[2]+","+d11[0];
+			//alert(new Date(newDate).getTime());
+			//var date1 = new Date(newDate).getTime();​//for date1
+			
+			var d21=d2.split("/");
+			var newDate1=d21[1]+","+d21[2]+","+d21[0];
+			//var date2 = new Date(newDate1).getTime();​//for date2
+			
+			if(new Date(newDate).getTime()>=new Date(newDate1).getTime()){
+				alert('date1 is greater or equal dates');
+			}else{
+				var start = new Date(d1);
+				var end = new Date(d2);
+				var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']; 
+				//var all = loop.getMonth()+1;alert(all);
+				var loop = new Date(start);
+				while(loop <= end){
+				   //alert(loop.getMonth()+1);           
+				table+='<th class="row1" style="text-align:center;">'+loop.getDate()+'-'+months[loop.getMonth()]+'</th>';	
+				//alert(table);
+				   var newDate = loop.setDate(loop.getDate() + 1);
+				   loop = new Date(newDate);
+				}
+				$('#row').append(table);
+				$('#table').css('display','block');
+			}
+		}
+	});
+});
+</script>
+</body>
+</html>
